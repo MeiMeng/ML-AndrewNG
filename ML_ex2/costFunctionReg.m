@@ -20,7 +20,7 @@ grad = zeros(size(theta));
 H = sigmoid(X*theta);  %假设模型函数
 reg_theta = [0; theta(2:end)];
 
-J = (-1/m) * (y'*log(H) + (1-y)'*log(1-H)) + lambda/(2*m) * (theta(2:end,:)'*theta(2:end,:));  %加了正则项的代价
+J = (-1/m) * (y'*log(H) + (1-y)'*log(1-H)) + lambda/(2*m) * (reg_theta'*reg_theta);  %加了正则项的代价
 %J = -(1/m) * sum(y.*log(H)+(1-y).*log(1-H));  %代价
 %J = 1/m*(-1*y'*log(sigmoid(X*theta)) - (ones(1,m)-y')*log(ones(m,1)-sigmoid(X*theta))) + lambda/(2*m) * (theta(2:end,:))'*theta(2:end,:);
 

@@ -16,8 +16,10 @@ J = 0;
 
 predictionVector = X*theta;
 E = predictionVector-y;
+
 %每个误差算平方，然后再加起来
 errorQuadraticSum = E' * E;
+
 %代价要在误差的平方和上除以2m
 J = errorQuadraticSum/(2*m);
 

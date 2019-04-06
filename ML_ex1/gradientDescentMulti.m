@@ -17,13 +17,16 @@ for iter = 1:num_iters
     %       of the cost function (computeCostMulti) and gradient here.
     %
     
-    Prediction = X*theta;
-    E = Prediction - y;
+    Predictions = X*theta;
+    E = Predictions - y;
     %外面循环一次，都要同时更新一次所有theta
-    for i = 1 : length(theta)  %matlab中的数组角标是从1开始的
-        D = E.*X(:,i);  %更新的是theta几，乘的就是X的第几列。(求偏导数)
-        theta(i) = theta(i) - alpha*(1/m)*sum(D);
-    end
+%     for i = 1 : length(theta)  %matlab中的数组角标是从1开始的
+%         D = E.*X(:,i);  %更新的是theta几，乘的就是X的第几列。(求偏导数)
+%         theta(i) = theta(i) - alpha*(1/m)*sum(D);
+%     end
+
+    %批量梯度下降，总共有(n+1)个theta，J关于各个theta的偏导数组成一个(n+1)维向量：(X'*E) 
+    theta = theta - alpha * (X'*E)/m;  %alpha是学习率 
 
     % ============================================================
 
