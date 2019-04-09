@@ -45,7 +45,7 @@ function [J, grad] = costFunction(theta, X, y)
 end
 ```
 
-#### 4.利用最小化代价函数
+#### 4.利用fminunc最小化代价函数
 ```matlab
 % Initialize fitting parameters
 initial_theta = zeros(n + 1, 1);
