@@ -1,4 +1,4 @@
-#二、[逻辑回归(二元分类)](https://github.com/MeiMeng/ML-AndrewNG/tree/master/ML_ex2)
+# 二、[逻辑回归(二元分类)](https://github.com/MeiMeng/ML-AndrewNG/tree/master/ML_ex2)
 ### ex2-[线性决策边界-无正则化](https://github.com/MeiMeng/ML-AndrewNG/blob/master/ML_ex2/ex2.m)
 #### 1.[训练数据集](https://github.com/MeiMeng/ML-AndrewNG/blob/master/ML_ex2/ex2data1.txt)
 ```matlab
@@ -45,7 +45,7 @@ function [J, grad] = costFunction(theta, X, y)
 end
 ```
 
-####4.利用最小化代价函数
+#### 4.利用最小化代价函数
 ```matlab
 % Initialize fitting parameters
 initial_theta = zeros(n + 1, 1);

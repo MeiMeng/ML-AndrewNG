@@ -1,4 +1,4 @@
-#一、[线性回归](https://github.com/MeiMeng/ML-AndrewNG/tree/master/ML_ex1)
+# 一、[线性回归](https://github.com/MeiMeng/ML-AndrewNG/tree/master/ML_ex1)
 ### ex1 - [一元线性回归](https://github.com/MeiMeng/ML-AndrewNG/blob/master/ML_ex1/ex1.m)
 #### 1.[训练数据集：x,y](https://github.com/MeiMeng/ML-AndrewNG/blob/master/ML_ex1/ex1data1.txt)
 ```matlab
@@ -164,7 +164,7 @@ end
 &nbsp;
 &nbsp;
 
-3.[代价函数：](https://github.com/MeiMeng/ML-AndrewNG/blob/master/ML_ex1/computeCostMulti.m)
+#### 3.[代价函数：](https://github.com/MeiMeng/ML-AndrewNG/blob/master/ML_ex1/computeCostMulti.m)
 ```matlab
 function J = computeCostMulti(X, y, theta)
 
