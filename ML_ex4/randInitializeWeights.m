@@ -23,7 +23,7 @@ W = zeros(L_out, 1 + L_in);
 
 INIT_EPSILON = 0.1;
 % [-ε,ε]之间
-% rand(i,j) 是i行j列的随机矩阵，元素都在[0,1]直接
+% rand(i,j) 是i行j列的随机矩阵，元素都在[0,1]之间
 W = rand(size(W))*2*INIT_EPSILON - INIT_EPSILON;
 
 
