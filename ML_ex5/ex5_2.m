@@ -72,6 +72,7 @@ fprintf('Program paused. Press enter to continue.\n');
 pause;
 
 %% =========== Part 4: Validation for Selecting Degree of Polynomial =============
+% 选择多项式次数
 
 [degree_vec, error_train, error_val] = ...
     validationCurve4degree(X, y, Xval, yval);
@@ -89,8 +90,11 @@ fprintf('Program paused. Press enter to continue.\n');
 pause;
 
 
-%% ================================================================
-p = 3;
+%% ========== Part 5: Validation for GeneralizationError of SelectedPolynomialDegree use X_poly_test ==============
+% 用Jtest(θp)验证模型的泛化误差
+
+p = 3;  % Selected Polynomial Degree
+
 [X_poly] = polyFeatures(X, p);
 [X_poly, mu, sigma] = featureNormalize(X_poly);  % Normalize
 X_poly = [ones(m, 1), X_poly];                   % Add Ones
@@ -100,11 +104,27 @@ X_poly_val = bsxfun(@minus, X_poly_val, mu);
 X_poly_val = bsxfun(@rdivide, X_poly_val, sigma);
 X_poly_val = [ones(size(X_poly_val, 1), 1), X_poly_val];           % Add Ones
 
-%% =========== Part 5: Validation for Selecting Lambda =============
+% Map X_poly_test and normalize (using mu and sigma)
+X_poly_test = polyFeatures(Xtest, p);
+X_poly_test = bsxfun(@minus, X_poly_test, mu);
+X_poly_test = bsxfun(@rdivide, X_poly_test, sigma);
+X_poly_test = [ones(size(X_poly_test, 1), 1), X_poly_test];         % Add Ones
+
+[theta] = trainLinearReg(X_poly, y, 0);
+[error_train, grad_train] = linearRegCostFunction(X_poly, y, theta, 0);
+[error_val, grad_val] = linearRegCostFunction(X_poly_val, yval, theta, 0);
+[error_test, grad_test] = linearRegCostFunction(X_poly_test, ytest, theta, 0);
+fprintf('Degree \t\t Train Error \t Validation Error \t Generalization Error \n');
+fprintf('  %d   \t\t  %f   \t  %f    \t\t   %f \n', p, error_train, error_val, error_test);
+
+fprintf('Program paused. Press enter to continue.\n');
+pause;
+
+%% =========== Part 6: Validation for Selecting Lambda =============
 %  You will now implement validationCurve to test various values of 
 %  lambda on a validation set. You will then use this to select the
 %  "best" lambda value.
-%
+% 选择正则化参数λ
 
 [lambda_vec, error_train, error_val] = ...
     validationCurve(X_poly, y, X_poly_val, yval);
@@ -125,12 +145,13 @@ end
 fprintf('Program paused. Press enter to continue.\n');
 pause;
 
-%% =========== Part 6: Learning Curve for Polynomial Regression =============
+%% =========== Part 7: Learning Curve for Polynomial Regression =============
 %  Now, you will get to experiment with polynomial regression with multiple
 %  values of lambda. The code below runs polynomial regression with 
 %  lambda = 0. You should try running the code with different values of
 %  lambda to see how the fit and learning curve change.
-%
+%  学习曲线
+
 lambda = 0;
 [theta] = trainLinearReg(X_poly, y, lambda);
 
@@ -163,7 +184,7 @@ fprintf('Program paused. Press enter to continue.\n');
 pause;
 
 
-lambda = 1.7;
+lambda = 1.65;
 [theta] = trainLinearReg(X_poly, y, lambda);
 
 % Plot training data and fit
@@ -193,6 +214,7 @@ end
 
 fprintf('Program paused. Press enter to continue.\n');
 pause;
+
 
 
 lambda = 10;

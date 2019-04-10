@@ -9,7 +9,7 @@
 &nbsp;
 &nbsp;
 
-#### 2.写出带正则化项的代价函数和梯度
+#### 2.写出带正则化项的代价函数和梯度 [linearRegCostFunction.m](https://github.com/MeiMeng/ML-AndrewNG/blob/master/ML_ex5/linearRegCostFunction.m)
 ```matlab
 function [J, grad] = linearRegCostFunction(X, y, theta, lambda)
 
@@ -40,7 +40,7 @@ end
 &nbsp;
 &nbsp;
 
-#### 3.选择多项式次数
+#### 3.选择多项式次数 [validationCurve4degree.m](https://github.com/MeiMeng/ML-AndrewNG/blob/master/ML_ex5/validationCurve4degree.m)
 ```matlab
 function [degree_vec, error_train, error_val] = ...
     validationCurve4degree(X, y, Xval, yval)
@@ -82,9 +82,44 @@ end
 ![p=3 比较合适](https://upload-images.jianshu.io/upload_images/6065021-92795ffe0033fc9e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 &nbsp;
+
+#### 用Jtest(θp)验证模型的泛化误差 [ex5_2.m](https://github.com/MeiMeng/ML-AndrewNG/blob/master/ML_ex5/ex5_2.m)
+```matlab
+p = 3;  % Selected Polynomial Degree
+
+[X_poly] = polyFeatures(X, p);
+[X_poly, mu, sigma] = featureNormalize(X_poly);  % Normalize
+X_poly = [ones(m, 1), X_poly];                   % Add Ones
+
+X_poly_val = polyFeatures(Xval, p);
+X_poly_val = bsxfun(@minus, X_poly_val, mu);
+X_poly_val = bsxfun(@rdivide, X_poly_val, sigma);
+X_poly_val = [ones(size(X_poly_val, 1), 1), X_poly_val];           % Add Ones
+
+% Map X_poly_test and normalize (using mu and sigma)
+X_poly_test = polyFeatures(Xtest, p);
+X_poly_test = bsxfun(@minus, X_poly_test, mu);
+X_poly_test = bsxfun(@rdivide, X_poly_test, sigma);
+X_poly_test = [ones(size(X_poly_test, 1), 1), X_poly_test];         % Add Ones
+
+[theta] = trainLinearReg(X_poly, y, 0);
+[error_train, grad_train] = linearRegCostFunction(X_poly, y, theta, 0);
+[error_val, grad_val] = linearRegCostFunction(X_poly_val, yval, theta, 0);
+[error_test, grad_test] = linearRegCostFunction(X_poly_test, ytest, theta, 0);
+fprintf('Degree \t\t Train Error \t Validation Error \t Generalization Error \n');
+fprintf('  %d   \t\t  %f   \t  %f    \t\t   %f \n', p, error_train, error_val, error_test);
+```
+
+|  Degree   | Train Error     |	 Validation Error   |	 Generalization Error  |
+| :----------: | :----------------: | :-----------------------: | :-------------------------: |
+|      3   	|   0.716365      | 	  5.768795    	|	   5.495818   |
+
+
+
+&nbsp;
 &nbsp;
 
-#### 4.选择正则化参数λ
+#### 4.选择正则化参数λ [validationCurve.m](https://github.com/MeiMeng/ML-AndrewNG/blob/master/ML_ex5/validationCurve.m)
 ```matlab
 function [lambda_vec, error_train, error_val] = ...
     validationCurve(X, y, Xval, yval)
@@ -118,7 +153,7 @@ end
 &nbsp;
 &nbsp;
 
-#### 5.绘制学习曲线
+#### 5.绘制学习曲线 [learningCurve.m](https://github.com/MeiMeng/ML-AndrewNG/blob/master/ML_ex5/learningCurve.m)
 ```matlab
 function [error_train, error_val] = ...
     learningCurve(X, y, Xval, yval, lambda)
